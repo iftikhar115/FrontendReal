@@ -8,10 +8,10 @@ function About() {
         attendence: '', salary: '', currency: ''
     })
 
-
+    const API_KEY = 'https://backend-de1i.vercel.app/';
     useEffect(() => {
         const fetchWorker = async () => {
-            const resp = await axios.get(`api/worker`)
+            const resp = await axios.get(`${API_KEY}api/worker`)
             setData(resp.data)
         }
         fetchWorker()
@@ -19,12 +19,12 @@ function About() {
     const workerHandler = async () => {
         const newWorker = { ...form, salary: Number(form.salary) }
         await axios.post(`}/api/worker`, newWorker)
-        const resp = await axios.get(`/api/worker`)
+        const resp = await axios.get(`${API_KEY}/api/worker`)
         setData(resp.data)
         setForm({ name: '', Category: '', attendence: '', salary: '', currency: '' })
     }
     const worker_Del_Handler = async (id) => {
-        await axios.delete(`api/worker/${id}`)
+        await axios.delete(`${API_KEY}api/worker/${id}`)
         setData(data.filter(worker => worker.id !== id))
     }
     return (

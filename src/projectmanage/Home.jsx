@@ -10,15 +10,15 @@ function Home() {
         activeProjects: 3
     });
 
-
+    const API_KEY = 'https://backend-de1i.vercel.app/'
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
                 const [materials, workers, expenses] = await Promise.all([
-                    axios.get(`/api/materials`),
-                    axios.get(`/api/workeRS`),
-                    axios.get(`/api/expenses`)
+                    axios.get(`${API_KEY}/api/materials`),
+                    axios.get(`${API_KEY}/api/workeRS`),
+                    axios.get(`${API_KEY}/api/expenses`)
                 ]);
 
                 setStats({

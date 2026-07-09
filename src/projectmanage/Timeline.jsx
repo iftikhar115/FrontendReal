@@ -4,24 +4,24 @@ import axios from "axios";
 function Timeline() {
     const [phases, setPhases] = useState([])
     const [form, setForm] = useState({ phaseName: '', startDate: '', endDate: '', status: 'Pending' })
-
+    const API_KEY = 'https://backend-de1i.vercel.app/'
 
     useEffect(() => {
-        axios.get(`/api/timeline`)
+        axios.get(`${API_KEY}/api/timeline`)
             .then(resp => setPhases(resp.data))
             .catch(() => console.log('Server not running'))
     }, [])
 
     const addPhase = async (e) => {
         e.preventDefault()
-        await axios.post(`/api/timeline`, { ...form })
+        await axios.post(`${API_KEY}/api/timeline`, { ...form })
         const resp = await axios.get(`/api/timeline`)
         setPhases(resp.data)
         setForm({ phaseName: '', startDate: '', endDate: '', status: 'Pending' })
     }
 
     const deletePhase = async (id) => {
-        await axios.delete(`/api/timeline/${id}`)
+        await axios.delete(`${API_KEY}/api/timeline/${id}`)
         setPhases(phases.filter(phase => phase.id !== id))
     }
 

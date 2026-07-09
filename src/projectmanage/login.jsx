@@ -9,10 +9,10 @@ function Login() {
     const [error, setError] = useState('')
     const navigation = useNavigate()
 
-
+    const API_KEY = 'https://backend-de1i.vercel.app/';
 
     useEffect(() => {
-        axios.get(`/api/login`)
+        axios.get(`${API_KEY}/api/login`)
             .then((response) => {
                 if (response.data && response.data.length > 0) {
                     setLoggedin(response.data[0])
@@ -28,7 +28,7 @@ function Login() {
             return
         }
         try {
-            const resp = await axios.post('/api/login', { email })
+            const resp = await axios.post(`${API_KEY}/api/login`, { email })
             if (resp.data.success) {
                 setLoggedin(resp.data._user)
                 localStorage.setItem('workerEmail', email)
@@ -42,7 +42,7 @@ function Login() {
 
     }
     const handleLogOut = async () => {
-        axios.delete(`/api/login/${loggedin.id}`)
+        axios.delete(`${API_KEY}/api/login/${loggedin.id}`)
         setLoggedin(null)
     }
     if (loggedin) {

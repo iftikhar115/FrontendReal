@@ -7,10 +7,10 @@ function Expenses() {
     const [form, setForm] = useState({ date: '', description: '', category: '', amount: '' })
 
     // environment veriables: 
-
+    const API_KEY = 'https://backend-de1i.vercel.app/'
     // use effect hook ===>  
     useEffect(() => {
-        axios.get(`/api/expenses`)
+        axios.get(`${API_KEY}/api/expenses`)
             .then(resp => setData(resp.data))
             .catch(() => {
                 setError("Expenses can not found")
@@ -19,16 +19,16 @@ function Expenses() {
     }, [])
     const expensesHandler = async (e) => {
         e.preventDefault()
-        const newExpense = await axios.post(`/api/expenses`, {
+        const newExpense = await axios.post(`${API_KEY}/api/expenses`, {
             ...form, amount: Number(form.amount)
         })
-        const resp = await axios.get(`/api/expenses`)
+        const resp = await axios.get(`${API_KEY}/api/expenses`)
         setData(resp.data)
         setForm({ date: '', description: '', category: '', amount: '' })
     }
     const expense_DeleteHandle = async (id) => {
         console.log("delted id:", id)
-        await axios.delete(`${API_URL}/api/expenses/${id}`)
+        await axios.delete(`${API_KEY}/api/expenses/${id}`)
         setData(data.filter(expense => expense.id !== id))
     }
     return (

@@ -6,12 +6,12 @@ function Materials() {
     const [error, setError] = useState('')
     const [form, setForm] = useState({ name: "", quantity: '', unit: '', priceperunit: '' })
 
-
+    const API_KEY = 'https://backend-de1i.vercel.app/'
 
     useEffect(() => {
         const materialsFetch = async () => {
             try {
-                await axios.get(`/api/materials`)
+                await axios.get(`${API_KEY}/api/materials`)
                     .then(resp => setData(resp.data))
             } catch (error) {
                 setError("Materials can not fatched")
@@ -25,13 +25,13 @@ function Materials() {
             ...form, quantity: Number(form.quantity),
             priceperunit: Number(form.priceperunit)
         }
-        await axios.post(`/api/materials`, newItem)
+        await axios.post(`${API_KEY}/api/materials`, newItem)
         const resp = await axios.get(`/api/materials`)
         setData(resp.data)
         setForm({ name: '', quantity: '', unit: '', priceperunit: '' })
     }
     const materialsDeletehandle = async (id) => {
-        await axios.delete(`}/api/materials/${id}`)
+        await axios.delete(`${API_KEY}/api/materials/${id}`)
         setData(data.filter(item => item.id !== id))
     }
     return (
